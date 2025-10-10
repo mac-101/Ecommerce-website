@@ -42,7 +42,7 @@ export default function Products({ group = "first", limit = 4 }) {
                     <Link key={item.id} to={`/product/${item.id}`}>
                         <div
                             key={item.id}
-                            className="card max-w-[300px] gap-1 flex p-1 flex-col bg-white rounded-xl"
+                            className="card w-full max-w-[300px] gap-1 flex p-1 flex-col bg-white rounded-xl"
                         >
                             <img
                                 src={item.thumbnail}
