@@ -6,7 +6,7 @@ export default function Home() {
         <>
             <div>
                 <div>
-                    <Products group="first" limit={60} />
+                    <Products group="first" limit={12} />
                     <Products group="second" limit={6}/>
                 </div>
             </div>

@@ -1,36 +1,22 @@
 import { useEffect, useState } from "react";
-import { firestore } from "../firebase"; // make sure you export db from firebase.js
-import { getDocs, collection, doc, deleteDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState([]);
 
   // 🔹 Fetch cart items
-  const fetchCartProducts = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(firestore, "cart"));
-      const items = querySnapshot.docs.map((docSnap) => ({
-        docId: docSnap.id,   // Firestore document ID (unique)
-        ...docSnap.data(),   // product fields (title, price, thumbnail, etc.)
-      }));
-      setCartItems(items);
-      console.log("Cart items:", items);
-    } catch (err) {
-      console.error("Error fetching cart:", err);
-    }
+  const fetchCartProducts = () => {
+    const stored = localStorage.getItem("cart");
+    const cartItems = stored ? JSON.parse(stored) : [];
+    setCartItems(cartItems);
   };
 
   // 🔹 Delete a cart item
-  const deleteCartProduct = async (docId) => {
-    try {
-      await deleteDoc(doc(firestore, "cart", docId));
-      console.log("Deleted cart item with id:", docId);
-      // Refresh cart after delete
-      setCartItems((prev) => prev.filter((item) => item.docId !== docId));
-    } catch (err) {
-      console.error("Error deleting cart item:", err);
-    }
+  const deleteCartProduct = (id) => {
+    const updatedCart = cartItems.filter(item => item.id !== id);
+    setCartItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+
   };
   const getCartTotal = (cartItems) => {
     return cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -44,11 +30,11 @@ export default function Cart() {
     <div className="p-4">
       <div className="flex justify-between">
         <h1 className="text-xl font-bold mb-4">Your Cart</h1>
-      <div>
-        <p className="text-xl font-bold mt-6 ">
-        Total ${getCartTotal(cartItems).toFixed(2)} <button className="py-3 px-5 rounded-3xl bg-gray-300">Check out</button> 
-        </p>
-      </div>
+        <div>
+          <p className="text-xl font-bold mt-6 ">
+            Total ${getCartTotal(cartItems).toFixed(2)} <button className="py-3 px-5 rounded-3xl bg-gray-300">Check out</button>
+          </p>
+        </div>
       </div>
 
       {cartItems.length === 0 ? (
@@ -56,7 +42,7 @@ export default function Cart() {
       ) : (
         <ul className="space-y-3">
           {cartItems.map((item) => (
-            <li key={item.docId} className="flex items-center justify-between border-b pb-2">
+            <li key={item.id} className="flex items-center justify-between border-b pb-2">
 
               <Link key={item.id} to={`/product/${item.id}`}>
                 <div className="flex items-center gap-4">
@@ -75,7 +61,7 @@ export default function Cart() {
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    deleteCartProduct(item.docId)
+                    deleteCartProduct(item.id)
                   }}
                   className="text-red-500 hover:underline"
                 >
