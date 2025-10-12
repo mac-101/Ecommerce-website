@@ -110,7 +110,7 @@ export default function Products({ group = "first", limit = 4 }) {
     if (group === "second") {
         // Horizontal list style
         return (
-            <div className="flex overflow-hidden flex-col bg-red-400 items-center gap-3 p-2">
+            <div className="flex overflow-hidden flex-col items-center gap-3 p-2">
                 {displayedProducts.map((item) => (
                     <div
                         key={item.id}
