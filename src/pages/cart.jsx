@@ -31,9 +31,11 @@ export default function Cart() {
       <div className="flex justify-between">
         <h1 className="text-xl font-bold mb-4">Your Cart</h1>
         <div>
-          <p className="text-xl font-bold mt-6 ">
-            Total ${getCartTotal(cartItems).toFixed(2)} <button className="py-3 px-5 rounded-3xl bg-gray-300">Check out</button>
-          </p>
+          <Link to="/checkout">
+            <p className="text-xl font-bold mt-6 ">
+              Total ${getCartTotal(cartItems).toFixed(2)} <button className="py-3 px-5 rounded-3xl bg-gray-300">Check out</button>
+            </p>
+          </Link>
         </div>
       </div>
 
