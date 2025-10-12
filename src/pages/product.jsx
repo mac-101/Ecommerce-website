@@ -68,7 +68,7 @@ export default function Products({ group = "first", limit = 4 }) {
 
 
                 <div
-                    className="grid justify-center gap-1 p-2"
+                    className="grid justify-items-center-center gap-1 p-2"
                     style={{ gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}
                 >
                     {displayedProducts.map((item) => (
