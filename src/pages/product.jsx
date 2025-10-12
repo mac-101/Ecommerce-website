@@ -41,11 +41,11 @@ export default function Products({ group = "first", limit = 4 }) {
             <div>
 
                 {heroProduct && (
-                    <section className="w-full items-center p-10">
+                    <section className="w-full flex justify-center items-center p-1 md:p-5">
 
-                        <div className=" w-full block md:flex bg-red-400 md:px-45 items-center rounded-xl shadow-lg">
+                        <div className=" w-full block md:flex bg-red-400 p-5 md:px-15 lg:px-30 items-center rounded-xl shadow-lg">
                             <div className="font-bold w-[50%] mt-2 text-lg">
-                                <h3 className="text-5xl">Grab Upto 50% Off On our Blacklist Season</h3>
+                                <h3 className="text-4xl mb-2 md:text-5xl">Grab Upto 50% Off On our Blacklist Season</h3>
 
                                 <Button
                                     label="Shop Now"
@@ -55,10 +55,10 @@ export default function Products({ group = "first", limit = 4 }) {
                             </div>
                             <div className="w-[50%] ">
                                 <img
-                                src={heroProduct.thumbnail}
-                                alt={heroProduct.title}
-                                className="w-full h-60 object-contain rounded-2xl"
-                            />
+                                    src={heroProduct.thumbnail}
+                                    alt={heroProduct.title}
+                                    className="w-full h-60 object-contain rounded-2xl"
+                                />
                             </div>
 
                         </div>
@@ -75,7 +75,7 @@ export default function Products({ group = "first", limit = 4 }) {
                         <Link key={item.id} to={`/product/${item.id}`}>
                             <div
                                 key={item.id}
-                                className="card w-full max-w-[300px] gap-1 flex p-1 flex-col bg-white rounded-xl"
+                                className="card w-full max-w-[300px] gap-1 flex justify-self-center p-1 flex-col bg-white rounded-xl"
                             >
                                 <img
                                     src={item.thumbnail}
@@ -110,7 +110,7 @@ export default function Products({ group = "first", limit = 4 }) {
     if (group === "second") {
         // Horizontal list style
         return (
-            <div className="flex flex-col items-center gap-3 p-2">
+            <div className="flex overflow-hidden flex-col bg-red-400 items-center gap-3 p-2">
                 {displayedProducts.map((item) => (
                     <div
                         key={item.id}
@@ -122,9 +122,9 @@ export default function Products({ group = "first", limit = 4 }) {
                             className="bg-gray-200 w-28 h-28 object-contain rounded-lg"
                         />
                         <div className="flex flex-col flex-1">
-                            <div className="flex justify-between font-bold">
-                                <h3 className="truncate">{item.title}</h3>
-                                <p>${item.price}</p>
+                            <div className="flex flex-wrap justify-between font-bold w-full">
+                                <h3 className="w-full sm:w-auto truncate">{item.title}</h3>
+                                <p className="text-right sm:text-left">${item.price}</p>
                             </div>
                             <p className="text-xs text-gray-500">Rating: {item.rating}</p>
                             <p className="text-sm text-gray-600">

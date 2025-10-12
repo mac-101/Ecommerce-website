@@ -8,6 +8,7 @@ export const addToCart = (product) => {
     totalPrice: product.totalPrice || product.price,
     thumbnail: product.thumbnail,
     quantity: product.quantity || 1,
+    description: product.description,
     createdAt: new Date(),
   };
 
