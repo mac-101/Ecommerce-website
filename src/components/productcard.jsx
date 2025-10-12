@@ -61,7 +61,7 @@ export default function ProductDetail() {
                 <div className="flex my-10 gap-5">
                     {/* Total Price */}
                     <p className="mt-2 text-green-900 font-medium">
-                        Total: ${product.price * quantity}
+                        Total: ${product.price * quantity.toFixed(2)}
                     </p>
 
                     {/* Add to Cart Button */}
