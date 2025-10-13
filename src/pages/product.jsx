@@ -31,6 +31,7 @@ export default function Products({ group = "first", limit = 4 }) {
             }
         };
         fetchingGoods();
+        
     }, []);
 
     // Render differently depending on group
@@ -43,8 +44,8 @@ export default function Products({ group = "first", limit = 4 }) {
                 {heroProduct && (
                     <section className="w-full flex justify-center items-center p-1 md:p-5">
 
-                        <div className=" w-full block md:flex bg-red-400 p-5 md:px-15 lg:px-30 items-center rounded-xl shadow-lg">
-                            <div className="font-bold w-[50%] mt-2 text-lg">
+                        <div className=" w-full flex gap-5 flex-col md:flex-row bg-red-400 p-5 md:px-15 lg:px-30 items-center rounded-xl shadow-lg">
+                            <div className="font-bold md:w-[50%] mt-2 text-lg">
                                 <h3 className="text-4xl mb-2 md:text-5xl">Grab Upto 50% Off On our Blacklist Season</h3>
 
                                 <Button
@@ -53,7 +54,7 @@ export default function Products({ group = "first", limit = 4 }) {
                                     onClick={() => navigate("/cart")}
                                 />
                             </div>
-                            <div className="w-[50%] ">
+                            <div className="md:w-[50%] ">
                                 <img
                                     src={heroProduct.thumbnail}
                                     alt={heroProduct.title}
@@ -111,6 +112,9 @@ export default function Products({ group = "first", limit = 4 }) {
         // Horizontal list style
         return (
             <div className="flex overflow-hidden flex-col items-center gap-3 p-2">
+
+                <h1 className="font-bold text-4xl md-text-5xl my-5">Exclusive Offers</h1>
+
                 {displayedProducts.map((item) => (
                     <div
                         key={item.id}

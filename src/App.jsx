@@ -4,6 +4,7 @@ import ProductCard from './components/productcard';
 import Cart from './pages/cart';
 import Header from './components/header';
 import Checkout from './pages/checkout';
+import Footer from './components/footer';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout/>}/>
       </Routes>
+      <Footer/>
     </Router>
   );
 }

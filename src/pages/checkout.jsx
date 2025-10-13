@@ -46,56 +46,58 @@ export default function Checkout() {
     }, []);
 
     return (
-        <>
-            <div className="border-2 border-gray-200 my-6 rounded-lg mx-3">
-                <h1 className="font-bold text-2xl md:text-3xl">Review items and Shipping</h1>
-                <ul>
-                    {checkoutGoods.map((goods) => (
-                        <li key={goods.id} className="flex items-center w-full my-2 justify-between font-semibold px-2">
-                            <div className="flex items-center">
-                                <img className="w-20 rounded-lg bg-gray-200 m-1" src={goods.thumbnail} alt={goods.title} />
-                                <h1 className="text-md md:text-lg p-2 md:p-5 font-bold">{goods.title}</h1>
-                            </div>
-                            <div>
-                                <p>${goods.price}</p>
-                                <p className="text-sm">Quantity: {goods.quantity}</p>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+        <div className="md:flex">
+            <div className=" md:w-[65%]">
+                <div className="border-2 border-gray-200 my-6 px-2 rounded-lg mx-3">
+                    <h1 className="font-bold text-2xl md:text-3xl">Review items and Shipping</h1>
+                    <ul>
+                        {checkoutGoods.map((goods) => (
+                            <li key={goods.id} className="flex items-center w-full my-2 justify-between font-semibold">
+                                <div className="flex items-center">
+                                    <img className="w-20 rounded-lg bg-gray-200 m-1" src={goods.thumbnail} alt={goods.title} />
+                                    <h1 className="text-md md:text-lg p-2 md:p-5 font-bold">{goods.title}</h1>
+                                </div>
+                                <div>
+                                    <p>${goods.price}</p>
+                                    <p className="text-sm">Quantity: {goods.quantity}</p>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
 
-            <div className="m-3 my-6 p-3 border-2 border-gray-200 rounded-lg">
-                <h1 className="font-bold text-2xl md:text-3xl mb-2">Delivery Information</h1>
+                <div className="m-3 my-6 p-3 border-2 border-gray-200 rounded-lg">
+                    <h1 className="font-bold text-2xl md:text-3xl mb-2">Delivery Information</h1>
 
-                {!showInput ? (
-                    <button onClick={editAddress} className="py-0.5 px-3 bg-gray-300 rounded-xl font-semibold mb-2">
-                        Edit
-                    </button>
-                ) : (
-                    <div className="flex gap-5">
-                        <input
-                            type="text"
-                            value={demoAddress}
-                            onChange={(e) => setDemoAddress(e.target.value)}
-                            className="bg-gray-200 px-2 py-1 rounded-md block mb-2"
-                            placeholder="Enter your address"
-                        />
-                        <button onClick={submit} className="py-1 px-3 bg-gray-300 rounded-xl font-semibold mb-2">
-                            Save
+                    {!showInput ? (
+                        <button onClick={editAddress} className="py-0.5 px-3 bg-gray-300 rounded-xl font-semibold mb-2">
+                            Edit
                         </button>
-                    </div>
-                )}
+                    ) : (
+                        <div className="flex gap-5">
+                            <input
+                                type="text"
+                                value={demoAddress}
+                                onChange={(e) => setDemoAddress(e.target.value)}
+                                className="bg-gray-200 px-2 py-1 rounded-md block mb-2"
+                                placeholder="Enter your address"
+                            />
+                            <button onClick={submit} className="py-1 px-3 bg-gray-300 rounded-xl font-semibold mb-2">
+                                Save
+                            </button>
+                        </div>
+                    )}
 
-                <p>{address}</p>
+                    <p>{address}</p>
+                </div>
             </div>
 
-            <div className="m-3 flex flex-col p-3 my-6 border-2 border-gray-200 rounded-lg">
+            <div className="m-3 flex flex-col p-3 my-6 border-2 md:w-[35%] border-gray-200 rounded-lg">
                 <h1 className="font-bold text-2xl md:text-3xl">Order Summery</h1>
 
                 <div className="flex pl-1 bg-gray-400 rounded-3xl p-1 mt-10 justify-between" >
-                    <input type="text" placeholder="Enter coupon code" className="w-full p-1 border-0" />
-                    <button className="py-1 text-white rounded-3xl w-40 px-3 bg-green-700">Apply Coupon</button>
+                    <input type="text" placeholder="Enter coupon code" className="p-1 w-full border-0" />
+                    <button className="py-1 text-white rounded-3xl w-40 px-2 bg-green-700">Apply Coupon</button>
                 </div>
 
                 <h1 className="font-bold textlg md:text-xl my-10">Payment Details</h1>
@@ -113,7 +115,14 @@ export default function Checkout() {
                 <input type="text" id="name" className="bg-gray-200 p-2 my-1 mb-5" placeholder="Type here..." />
 
                 <label htmlFor="number" className="text-sm font-semibold">Card Number*</label>
-                <input type="number" id="number" className="bg-gray-200 p-2 my-1" placeholder="0000****1234" />
+                <input
+                    type="number"
+                    id="number"
+                    className="bg-gray-200 p-2 my-1 appearance-none 
+             [&::-webkit-inner-spin-button]:appearance-none 
+             [&::-webkit-outer-spin-button]:appearance-none"
+                    placeholder="0000****1234"
+                />
 
 
                 <div className="space-y-3 my-10">
@@ -137,6 +146,6 @@ export default function Checkout() {
                     <button className="py-2 px-4 bg-gray-400 rounded-2xl">Checkout</button>
                 </div>
             </div>
-        </>
+        </div>
     );
 }

@@ -48,20 +48,28 @@ export default function ProductDetail() {
                     <label htmlFor="quantity" className="text-sm text-green-900">
                         Quantity:
                     </label>
-                    <input
-                        id="quantity"
-                        type="number"
-                        min="1"
-                        value={quantity}
-                        onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value)))}
-                        className="w-20 px-2 py-1 border rounded text-sm"
-                    />
+
+                    <button
+                        onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+                        className="px-2 py-1 bg-gray-200 rounded text-sm font-bold"
+                    >
+                        –
+                    </button>
+
+                    <span className="px-3 py-1 border rounded text-sm">{quantity}</span>
+
+                    <button
+                        onClick={() => setQuantity((prev) => prev + 1)}
+                        className="px-2 py-1 bg-gray-200 rounded text-sm font-bold"
+                    >
+                        +
+                    </button>
                 </div>
 
                 <div className="flex my-10 gap-5">
                     {/* Total Price */}
                     <p className="mt-2 text-green-900 font-medium">
-                        Total: ${product.price * quantity.toFixed(2)}
+                        Total: ${(product.price * quantity).toFixed(2)}
                     </p>
 
                     {/* Add to Cart Button */}

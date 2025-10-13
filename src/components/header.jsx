@@ -16,7 +16,7 @@ export default function Header() {
 
   const NavContent = (
     <>
-      <nav className={`flex ${sideNav && "flex-col my-10"} font-semibold gap-10 cursor-pointer`}>
+      <nav className={`flex ${sideNav && "flex-col my-10"} items-center font-semibold gap-10 cursor-pointer`}>
         <p onClick={hideNav} className="hover:text-green-950 hover:font-bold">Category</p>
         <p className="hover:text-green-950 hover:font-bold">Deals</p>
         <p className="hover:text-green-950 hover:font-bold">What's New</p>
