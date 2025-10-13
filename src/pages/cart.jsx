@@ -34,13 +34,13 @@ export default function Cart() {
 
   return (
     <div className="p-4">
-      <div className="flex justify-between">
+      <div className="md:flex justify-between mb-4">
         <h1 className="text-xl font-bold mb-4">Your Cart</h1>
         <div>
           <Link to="/checkout">
-            <p className="text-xl font-bold mt-6">
+            <p className="text-xl flex items-center justify-between font-bold mt-6">
               Total ${getCartTotal(cartItems).toFixed(2)}{" "}
-              <button className="py-3 px-5 rounded-3xl bg-gray-300">Check out</button>
+              <button className="py-2 px-4 rounded-3xl bg-gray-300">Check out</button>
             </p>
           </Link>
         </div>

@@ -31,7 +31,7 @@ export default function Products({ group = "first", limit = 4 }) {
             }
         };
         fetchingGoods();
-        
+
     }, []);
 
     // Render differently depending on group
@@ -42,11 +42,11 @@ export default function Products({ group = "first", limit = 4 }) {
             <div>
 
                 {heroProduct && (
-                    <section className="w-full flex justify-center items-center p-1 md:p-5">
+                    <section className="w-full flex justify-center items-center md:p-5">
 
-                        <div className=" w-full flex gap-5 flex-col md:flex-row bg-red-400 p-5 md:px-15 lg:px-30 items-center rounded-xl shadow-lg">
+                        <div className=" w-full flex gap-5 bg-red-400 px-1 py-4 my-2  md:px-15 lg:px-30 items-center md:rounded-xl shadow-lg">
                             <div className="font-bold md:w-[50%] mt-2 text-lg">
-                                <h3 className="text-4xl mb-2 md:text-5xl">Grab Upto 50% Off On our Blacklist Season</h3>
+                                <h3 className="text-2xl mb-2 md:text-5xl">Grab Upto 50% Off On our Blacklist Season</h3>
 
                                 <Button
                                     label="Shop Now"
@@ -58,7 +58,7 @@ export default function Products({ group = "first", limit = 4 }) {
                                 <img
                                     src={heroProduct.thumbnail}
                                     alt={heroProduct.title}
-                                    className="w-full h-60 object-contain rounded-2xl"
+                                    className="w-full md:h-60 object-contain rounded-2xl"
                                 />
                             </div>
 
@@ -67,6 +67,20 @@ export default function Products({ group = "first", limit = 4 }) {
                     </section>
                 )}
 
+                
+
+                <div className="w-full overflow-x-auto my-5 scrollbar-hide">
+                    <div className="flex gap-4 whitespace-nowrap px-2 py-1">
+                        <div className="px-3 py-1 font-semibold rounded-2xl bg-gray-100">Gadgets</div>
+                        <div className="px-3 py-1 font-semibold rounded-2xl bg-gray-100">Gadgets</div>
+                        <div className="px-3 py-1 font-semibold rounded-2xl bg-gray-100">Gadgets</div>
+                        <div className="px-3 py-1 font-semibold rounded-2xl bg-gray-100">Gadgets</div>
+                        <div className="px-3 py-1 font-semibold rounded-2xl bg-gray-100">Gadgets</div>
+                        <div className="px-3 py-1 font-semibold rounded-2xl bg-gray-100">Gadgets</div>
+                    </div>
+                </div>
+
+                <h1 className="font-bold text-2xl md-text-5xl my-5">Exclusive Offers</h1>
 
                 <div
                     className="grid justify-items-center-center gap-1 p-2"
@@ -113,7 +127,7 @@ export default function Products({ group = "first", limit = 4 }) {
         return (
             <div className="flex overflow-hidden flex-col items-center gap-3 p-2">
 
-                <h1 className="font-bold text-4xl md-text-5xl my-5">Exclusive Offers</h1>
+                <h1 className="font-bold text-2xl md-text-5xl my-5">Exclusive Offers</h1>
 
                 {displayedProducts.map((item) => (
                     <div
