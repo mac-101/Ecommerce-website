@@ -11,9 +11,13 @@ export default function Cart() {
   };
 
   const deleteCartProduct = (id) => {
-    const updatedCart = cartItems.filter(item => item.id !== id);
-    setCartItems(updatedCart);
+    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+    const updatedCart = existingCart.filter(item => item.id !== id);
+
     localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    // 🔔 Notify other components to refresh
+    window.dispatchEvent(new Event("cartUpdated"));
   };
 
   const updateQuantity = (id, newQty) => {

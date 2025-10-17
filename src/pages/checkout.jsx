@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+
 export default function Checkout() {
     const [checkoutGoods, setCheckoutGoods] = useState([]);
     const [address, setAddress] = useState("");
@@ -31,8 +32,13 @@ export default function Checkout() {
         return subTotal + tax;
     };
     const editAddress = () => {
-        setShowInput(true); // show input field
+        setShowInput(true);
     };
+
+    const amount = Math.floor(getTotal(checkoutGoods) * 100); 
+
+    console.log(amount)
+
 
     const submit = () => {
         setAddress(demoAddress); // save input to address
@@ -40,6 +46,39 @@ export default function Checkout() {
         setDemoAddress("")
 
     };
+
+    const [email, setEmail] = useState(""); // connect this to your email input
+
+    const handlePaystackPayment = () => {
+        const paystack = window.PaystackPop.setup({
+            key: import.meta.env.VITE_PAYSTACK_API,
+            email: email, // customer's email
+            amount: amount,
+            currency: "NGN",
+            ref: `${Date.now()}`, // unique reference
+            metadata: {
+                custom_fields: [
+                    {
+                        display_name: "Customer Name",
+                        variable_name: "customer_name",
+                        value: "Shopcart Customer",
+                    },
+                ],
+            },
+            callback: function (response) {
+                alert("Payment successful! Reference: " + response.reference);
+                console.log(response);
+            },
+            onClose: function () {
+                alert("Payment cancelled.");
+            },
+        });
+
+        paystack.openIframe(); // 🔥 opens the Paystack modal
+    };
+
+
+
 
     useEffect(() => {
         fetchCartProducts();
@@ -109,7 +148,14 @@ export default function Checkout() {
                     <div className="p-1 font-semibold"><input type="checkbox" /> Credit or Debit card</div>
                 </div>
                 <label htmlFor="email" className="text-sm font-semibold">Email*</label>
-                <input type="text" id="email" className="bg-gray-200 p-2 my-1 mb-5" placeholder="Email" />
+                <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="bg-gray-200 p-2 my-1 mb-5"
+                    placeholder="Email"
+                />
 
                 <label htmlFor="name" className="text-sm font-semibold">Card Holder Name*</label>
                 <input type="text" id="name" className="bg-gray-200 p-2 my-1 mb-5" placeholder="Type here..." />
@@ -143,7 +189,7 @@ export default function Checkout() {
                 </div>
                 <div className="flex gap-10 justify-end items-center text-lg font-bold my-2">
                     <p className="">${getTotal(checkoutGoods).toFixed(2)}</p>
-                    <button className="py-2 px-4 bg-gray-400 rounded-2xl">Checkout</button>
+                    <button onClick={handlePaystackPayment}>checkout</button>
                 </div>
             </div>
         </div>

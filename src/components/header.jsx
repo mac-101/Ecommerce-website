@@ -8,6 +8,29 @@ export default function Header() {
     setSideNav(false);
   };
 
+  const [checkoutGoods, setCheckoutGoods] = useState([]);
+
+  useEffect(() => {
+    const fetchCartProducts = () => {
+      const stored = localStorage.getItem("cart");
+      const cartItems = stored ? JSON.parse(stored) : [];
+      setCheckoutGoods(cartItems);
+    };
+
+    fetchCartProducts(); // initial load
+
+    const handleCartUpdate = () => {
+      fetchCartProducts(); // refresh on update
+    };
+
+    window.addEventListener("cartUpdated", handleCartUpdate);
+
+    return () => {
+      window.removeEventListener("cartUpdated", handleCartUpdate);
+    };
+  }, []);
+
+
   const toggleSideNav = () => {
     setSideNav((prev) => !prev);
   };
@@ -31,6 +54,7 @@ export default function Header() {
         <p className="hover:text-green-950 hover:font-bold">What's New</p>
         <p className="hover:text-green-950 hover:font-bold">Delivery</p>
         <Link to="/cart">
+
           <button className="text-green-950 font-bold flex hover:font-extrabold items-center gap-2 mt-2">
             <i className="ri-shopping-cart-line"></i>
             Cart
@@ -66,13 +90,17 @@ export default function Header() {
         <div className="hidden lg:flex items-center gap-10">{NavContent}</div>
 
         {/* Right side icons */}
-        <div className="flex gap-5">
+        <div className="flex gap-5 items-center relative">
           <Link to="/cart">
-            <button className="text-green-950 font-bold flex hover:font-extrabold items-center gap-2 mt-2">
-              <i className="ri-shopping-cart-line"></i>
-              Cart
+            <button className="text-green-950 font-bold flex hover:font-extrabold items-center gap-2 mt-2 relative">
+              <i className="ri-shopping-cart-line text-2xl"></i>
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
+                {checkoutGoods.reduce((sum, item) => sum + item.quantity, 0)}
+              </span>
+              <span>Cart</span>
             </button>
           </Link>
+
           <button
             onClick={toggleSideNav}
             className="block lg:hidden text-2xl text-green-950"
