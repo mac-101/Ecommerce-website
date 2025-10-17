@@ -141,12 +141,7 @@ export default function Checkout() {
 
                 <h1 className="font-bold textlg md:text-xl my-10">Payment Details</h1>
 
-                <div className="pb-10">
-                    <div className="p-1 font-semibold"><input type="checkbox" /> Cash on Delivery</div>
-                    <div className="p-1 font-semibold"><input type="checkbox" /> Shopcart Card</div>
-                    <div className="p-1 font-semibold"><input type="checkbox" /> Paypal</div>
-                    <div className="p-1 font-semibold"><input type="checkbox" /> Credit or Debit card</div>
-                </div>
+                
                 <label htmlFor="email" className="text-sm font-semibold">Email*</label>
                 <input
                     type="email"
@@ -155,19 +150,6 @@ export default function Checkout() {
                     onChange={(e) => setEmail(e.target.value)}
                     className="bg-gray-200 p-2 my-1 mb-5"
                     placeholder="Email"
-                />
-
-                <label htmlFor="name" className="text-sm font-semibold">Card Holder Name*</label>
-                <input type="text" id="name" className="bg-gray-200 p-2 my-1 mb-5" placeholder="Type here..." />
-
-                <label htmlFor="number" className="text-sm font-semibold">Card Number*</label>
-                <input
-                    type="number"
-                    id="number"
-                    className="bg-gray-200 p-2 my-1 appearance-none 
-             [&::-webkit-inner-spin-button]:appearance-none 
-             [&::-webkit-outer-spin-button]:appearance-none"
-                    placeholder="0000****1234"
                 />
 
 
