@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
+import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
+
 
 
 export default function Checkout() {
     const [checkoutGoods, setCheckoutGoods] = useState([]);
     const [address, setAddress] = useState("");
+    const navigate = useNavigate();
     const [demoAddress, setDemoAddress] = useState(""); // ✅ fixed typo
     const [showInput, setShowInput] = useState(false);   // controls input visibility
 
@@ -35,7 +39,7 @@ export default function Checkout() {
         setShowInput(true);
     };
 
-    const amount = Math.floor(getTotal(checkoutGoods) * 100); 
+    const amount = Math.floor(getTotal(checkoutGoods) * 100);
 
     console.log(amount)
 
@@ -50,12 +54,17 @@ export default function Checkout() {
     const [email, setEmail] = useState(""); // connect this to your email input
 
     const handlePaystackPayment = () => {
+        if (!email) {
+            toast.error("Please enter your email");
+            return;
+        }
+
         const paystack = window.PaystackPop.setup({
             key: import.meta.env.VITE_PAYSTACK_API,
-            email: email, // customer's email
-            amount: amount,
+            email: email,
+            amount: Math.floor(amount * 100), // ensure it's in kobo and an integer
             currency: "NGN",
-            ref: `${Date.now()}`, // unique reference
+            ref: `${Date.now()}`,
             metadata: {
                 custom_fields: [
                     {
@@ -66,15 +75,18 @@ export default function Checkout() {
                 ],
             },
             callback: function (response) {
-                alert("Payment successful! Reference: " + response.reference);
-                console.log(response);
+                toast.success("Payment Successful");
+                navigate("/paymentSuccess", {
+                    state: { amount: amount },
+                });
+                console.log("Paystack response:", response);
             },
             onClose: function () {
-                alert("Payment cancelled.");
+                toast.error("Payment Cancelled");
             },
         });
 
-        paystack.openIframe(); // 🔥 opens the Paystack modal
+        paystack.openIframe();
     };
 
 
@@ -86,6 +98,10 @@ export default function Checkout() {
 
     return (
         <div className="md:flex">
+            <Toaster
+                position="top-center"
+                reverseOrder={true}
+            />
             <div className=" md:w-[65%]">
                 <div className="border-2 border-gray-200 my-6 px-2 rounded-lg mx-3">
                     <h1 className="font-bold text-2xl md:text-3xl">Review items and Shipping</h1>
@@ -141,7 +157,7 @@ export default function Checkout() {
 
                 <h1 className="font-bold textlg md:text-xl my-10">Payment Details</h1>
 
-                
+
                 <label htmlFor="email" className="text-sm font-semibold">Email*</label>
                 <input
                     type="email"
@@ -171,7 +187,7 @@ export default function Checkout() {
                 </div>
                 <div className="flex gap-10 justify-end items-center text-lg font-bold my-2">
                     <p className="">${getTotal(checkoutGoods).toFixed(2)}</p>
-                    <button onClick={handlePaystackPayment}>checkout</button>
+              <button onClick={handlePaystackPayment} className="py-2 px-4 rounded-3xl bg-gray-300">Check out</button>
                 </div>
             </div>
         </div>

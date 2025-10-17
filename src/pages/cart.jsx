@@ -16,7 +16,8 @@ export default function Cart() {
 
     localStorage.setItem("cart", JSON.stringify(updatedCart));
 
-    // 🔔 Notify other components to refresh
+    fetchCartProducts();
+
     window.dispatchEvent(new Event("cartUpdated"));
   };
 

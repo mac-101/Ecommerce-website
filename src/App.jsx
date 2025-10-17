@@ -5,6 +5,7 @@ import Cart from './pages/cart';
 import Header from './components/header';
 import Checkout from './pages/checkout';
 import Footer from './components/footer';
+import PaymentSuccess from './pages/paymentSuccessful';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/product/:id" element={<ProductCard/>} />
         <Route path="/cart" element={<Cart />} />
+        <Route path='/paymentSuccess' element={<PaymentSuccess/>}/>
         <Route path="/checkout" element={<Checkout/>}/>
       </Routes>
       <Footer/>
