@@ -6,6 +6,7 @@ import Header from './components/header';
 import Checkout from './pages/checkout';
 import Footer from './components/footer';
 import PaymentSuccess from './pages/paymentSuccessful';
+import Contact from './pages/contact';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path='/paymentSuccess' element={<PaymentSuccess/>}/>
         <Route path="/checkout" element={<Checkout/>}/>
+        <Route path="/contact" element={<Contact/>} />
       </Routes>
       <Footer/>
     </Router>

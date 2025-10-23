@@ -53,12 +53,9 @@ export default function Header() {
         <p className="hover:text-green-950 hover:font-bold">Deals</p>
         <p className="hover:text-green-950 hover:font-bold">What's New</p>
         <p className="hover:text-green-950 hover:font-bold">Delivery</p>
-        <Link to="/cart">
+        <Link to="/contact">
+        <p className="hover:text-green-950 hover:font-bold">Contact</p>
 
-          <button className="text-green-950 font-bold flex hover:font-extrabold items-center gap-2 mt-2">
-            <i className="ri-shopping-cart-line"></i>
-            Cart
-          </button>
         </Link>
       </nav>
 
