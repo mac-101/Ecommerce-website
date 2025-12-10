@@ -23,11 +23,11 @@ export default function Header() {
   }, []);
 
   const navItems = [
-    { label: "Category", path: "/category" },
-    { label: "Deals", path: "/deals" },
-    { label: "New", path: "/new" },
-    { label: "Delivery", path: "/delivery" },
-    { label: "Contact", path: "/contact" },
+    { label: "Category", path: "/" },
+    { label: "Deals", path: "/" },
+    { label: "New", path: "/" },
+    { label: "Delivery", path: "/" },
+    { label: "Contact", path: "/" },
   ];
 
   return (
