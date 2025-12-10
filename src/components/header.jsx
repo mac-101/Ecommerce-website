@@ -1,124 +1,138 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Menu, X, ShoppingCart, User, Search } from "lucide-react";
 
 export default function Header() {
-  const [sideNav, setSideNav] = useState(false);
-
-  const hideNav = () => {
-    setSideNav(false);
-  };
-
-  const [checkoutGoods, setCheckoutGoods] = useState([]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
-    const fetchCartProducts = () => {
+    const updateCartCount = () => {
       const stored = localStorage.getItem("cart");
       const cartItems = stored ? JSON.parse(stored) : [];
-      setCheckoutGoods(cartItems);
+      const count = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+      setCartCount(count);
     };
 
-    fetchCartProducts(); // initial load
-
-    const handleCartUpdate = () => {
-      fetchCartProducts(); // refresh on update
-    };
-
+    updateCartCount();
+    
+    const handleCartUpdate = () => updateCartCount();
     window.addEventListener("cartUpdated", handleCartUpdate);
-
-    return () => {
-      window.removeEventListener("cartUpdated", handleCartUpdate);
-    };
+    
+    return () => window.removeEventListener("cartUpdated", handleCartUpdate);
   }, []);
 
-
-  const toggleSideNav = () => {
-    setSideNav((prev) => !prev);
-  };
-
-  // Optional: auto-hide sidebar on scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      if (sideNav) {
-        setSideNav(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [sideNav]);
-
-  const NavContent = (
-    <>
-      <nav className={`flex ${sideNav ? "flex-col my-10" : ""} items-center font-semibold gap-10 cursor-pointer`}>
-        <p onClick={hideNav} className="hover:text-green-950 hover:font-bold">Category</p>
-        <p className="hover:text-green-950 hover:font-bold">Deals</p>
-        <p className="hover:text-green-950 hover:font-bold">What's New</p>
-        <p className="hover:text-green-950 hover:font-bold">Delivery</p>
-        <Link to="/contact">
-        <p className="hover:text-green-950 hover:font-bold">Contact</p>
-
-        </Link>
-      </nav>
-
-      <div className="flex items-center bg-gray-400 rounded-2xl px-3 mt-2">
-        <i className="ri-search-line text-gray-700"></i>
-        <input
-          type="search"
-          className="bg-transparent px-2 py-2 outline-none w-full"
-          placeholder="Search Product"
-        />
-      </div>
-
-      <button className={`font-bold ${sideNav ? "absolute bottom-10" : ""} flex items-center gap-2 mt-2`}>
-        <i className="ri-user-line"></i>
-        Account
-      </button>
-    </>
-  );
+  const navItems = [
+    { label: "Category", path: "/category" },
+    { label: "Deals", path: "/deals" },
+    { label: "New", path: "/new" },
+    { label: "Delivery", path: "/delivery" },
+    { label: "Contact", path: "/contact" },
+  ];
 
   return (
-    <>
-      {/* Header */}
-      <div className="flex justify-between items-center py-5 fixed top-0 w-full shadow px-5 z-0 bg-white">
-        <Link to="/">
-          <h1 className="text-green-950 font-bold text-2xl">Shopcart</h1>
-        </Link>
-
-        {/* Horizontal Nav: only on large screens */}
-        <div className="hidden lg:flex items-center gap-10">{NavContent}</div>
-
-        {/* Right side icons */}
-        <div className="flex gap-5 items-center relative">
-          <Link to="/cart">
-            <button className="text-green-950 font-bold flex hover:font-extrabold items-center gap-2 mt-2 relative">
-              <i className="ri-shopping-cart-line text-2xl"></i>
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
-                {checkoutGoods.reduce((sum, item) => sum + item.quantity, 0)}
-              </span>
-              <span>Cart</span>
-            </button>
+    <header className="sticky top-0 z-50 bg-white border-b">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link to="/" className="flex items-center">
+            <span className="text-2xl font-bold text-gray-900">Shopcart</span>
           </Link>
 
-          <button
-            onClick={toggleSideNav}
-            className="block lg:hidden text-2xl text-green-950"
-          >
-            <i className="ri-menu-line"></i>
-          </button>
-        </div>
-      </div>
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <Link
+                key={item.label}
+                to={item.path}
+                className="text-gray-700 hover:text-gray-900 font-medium transition-colors"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
 
-      {/* Sidebar: only on small screens and when toggled */}
-      {sideNav && (
-        <div className="fixed top-0 right-0 w-full max-w-75 h-full bg-white shadow-lg z-40 p-5 lg:hidden transition-transform duration-300">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold text-green-950">Menu</h2>
-            <button onClick={toggleSideNav} className="text-xl">
-              <i className="ri-close-line"></i>
+          {/* Right Section */}
+          <div className="flex items-center gap-4">
+            {/* Search */}
+            <div className="hidden lg:flex items-center">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input
+                  type="search"
+                  placeholder="Search products..."
+                  className="pl-10 pr-4 py-2 w-64 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
+            </div>
+
+            {/* Cart */}
+            <Link to="/cart" className="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
+              <ShoppingCart className="w-6 h-6 text-gray-700" />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+
+            {/* Account */}
+            <button className="hidden lg:flex items-center gap-2 text-gray-700 hover:text-gray-900 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+              <User className="w-5 h-5" />
+              <span className="font-medium">Account</span>
+            </button>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
-          {NavContent}
         </div>
-      )}
-    </>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="lg:hidden border-t mt-2 py-4">
+            <div className="space-y-4">
+              {/* Search in mobile */}
+              <div className="px-2">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <input
+                    type="search"
+                    placeholder="Search products..."
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              {/* Navigation Links */}
+              <div className="space-y-2">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.path}
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg font-medium"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+
+              {/* Account in mobile */}
+              <div className="px-4 pt-4 border-t">
+                <button className="flex items-center gap-2 text-gray-700 font-medium">
+                  <User className="w-5 h-5" />
+                  Account
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </header>
   );
 }
