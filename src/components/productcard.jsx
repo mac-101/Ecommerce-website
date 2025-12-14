@@ -473,40 +473,7 @@ export default function ProductDetail() {
                                 </div>
                             )}
                             
-                            {/* {activeTab === 'specifications' && (
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div>
-                                        <h4 className="font-bold text-gray-900 mb-4">General</h4>
-                                        <div className="space-y-3">
-                                            <div className="flex justify-between">
-                                                <span className="text-gray-600">Brand</span>
-                                                <span className="font-medium">{product.brand || 'N/A'}</span>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <span className="text-gray-600">Category</span>
-                                                <span className="font-medium">{product.category}</span>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <span className="text-gray-600">Stock</span>
-                                                <span className="font-medium">{product.stock} units</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h4 className="font-bold text-gray-900 mb-4">Dimensions</h4>
-                                        <div className="space-y-3">
-                                            <div className="flex justify-between">
-                                                <span className="text-gray-600">Weight</span>
-                                                <span className="font-medium">{product.weight || 'N/A'}</span>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <span className="text-gray-600">Dimensions</span>
-                                                <span className="font-medium">{product.dimensions || 'N/A'}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )} */}
+                           
                             
                             {activeTab === 'reviews' && (
                                 <div>

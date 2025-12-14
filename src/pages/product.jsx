@@ -70,10 +70,10 @@ export default function Products({ group = "first", limit = 4 }) {
     // Render differently depending on group
     if (group === "first") {
         return (
-            <div className="max-w-7xl z-0 mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="">
                 {/* Hero Banner */}
                 {heroProduct && (
-                    <section className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-purple-600 to-blue-600 mb-10">
+                    <section className="relative overflow-hidden my-20 bg-gradient-to-r from-purple-600 to-blue-600 mb-10">
                         <div className="absolute inset-0 bg-black opacity-10"></div>
                         <div className="relative flex flex-col md:flex-row items-center justify-between p-6 md:p-10 lg:p-12">
                             <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
@@ -123,8 +123,8 @@ export default function Products({ group = "first", limit = 4 }) {
                     </section>
                 )}
 
-                {/* Categories Filter */}
-                <div className="mb-10">
+                {/* Categories Filter
+                <div className="mb-10 z-0 mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     <div className="flex items-center justify-between mb-4">
                         <h2 className="text-xl font-bold text-gray-900">Shop by Category</h2>
                         <button className="text-purple-600 hover:text-purple-700 font-medium flex items-center">
@@ -145,10 +145,10 @@ export default function Products({ group = "first", limit = 4 }) {
                             </button>
                         ))}
                     </div>
-                </div>
+                </div> */}
 
                 {/* Featured Products */}
-                <div className="mb-8">
+                <div className="mb-8 z-0 mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between mb-6">
                         <div>
                             <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Exclusive Offers</h2>
